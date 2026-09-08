@@ -1,0 +1,46 @@
+{
+  "name": "sentry",
+  "version": "1.4.1",
+  "description": "Sentry's MCP and complete skill library, plus bounded CLI triage, guarded remediation, and release-lineage workflows.",
+  "author": {
+    "name": "Sentry / PedroAVJ",
+    "url": "https://github.com/PedroAVJ/sentry"
+  },
+  "homepage": "https://github.com/PedroAVJ/sentry",
+  "repository": "https://github.com/PedroAVJ/sentry",
+  "license": "MIT",
+  "keywords": [
+    "sentry",
+    "debugging",
+    "monitoring",
+    "error-tracking",
+    "logs",
+    "remediation",
+    "releases"
+  ],
+  "skills": "./skills/",
+  "mcpServers": "./.mcp.json",
+  "interface": {
+    "displayName": "Sentry",
+    "shortDescription": "Full Sentry tooling with guarded remediation",
+    "longDescription": "Use Sentry's hosted MCP server and vendor-authored skill library for setup, instrumentation, alerts, debugging, releases, and snapshots, with downstream CLI guidance for exact issue, event, log, and trace reads plus bounded pull-request remediation and verified release lineage.",
+    "developerName": "Sentry + PedroAVJ",
+    "category": "Developer Tools",
+    "capabilities": [
+      "Read",
+      "Write"
+    ],
+    "websiteURL": "https://sentry.io",
+    "privacyPolicyURL": "https://sentry.io/privacy/",
+    "termsOfServiceURL": "https://sentry.io/terms/",
+    "defaultPrompt": [
+      "Add Sentry to my project",
+      "What are the top Sentry errors in the last 24 hours?",
+      "What do the Sentry logs say for this project?",
+      "Remediate recent Sentry issues into reviewable pull requests"
+    ],
+    "brandColor": "#533371",
+    "composerIcon": "./assets/logo-small.svg",
+    "logo": "./assets/logo.svg"
+  }
+}

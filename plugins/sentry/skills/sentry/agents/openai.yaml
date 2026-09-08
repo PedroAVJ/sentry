@@ -1,0 +1,5 @@
+interface:
+  display_name: "Sentry"
+  short_description: "Read and triage Sentry through the sentry CLI"
+  brand_color: "#362D59"
+  default_prompt: "Use $sentry to inspect production issues, events, logs, and traces through the sentry CLI."

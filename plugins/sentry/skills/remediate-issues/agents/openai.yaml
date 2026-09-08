@@ -1,0 +1,4 @@
+interface:
+  display_name: "Remediate Sentry Issues"
+  short_description: "Turn new Sentry failures into reviewable PRs"
+  default_prompt: "Use $remediate-issues to fix the exact new or regressed Sentry issue groups."

@@ -1,0 +1,61 @@
+#!/bin/sh
+# Install the Sentry CLI (cli.sentry.dev) from its official GitHub releases.
+#
+# Sentry's own installer is `curl https://cli.sentry.dev/install | bash`, which
+# also rewrites shell PATH config and drops agent skills into ~/.claude and
+# ~/.agents. This script fetches the same released binary and does neither, so
+# the install stays inside a directory you already control and skills stay
+# managed by whatever installs skills.
+set -eu
+
+DEST="${SENTRY_CLI_DEST:-$HOME/.local/bin}"
+REPO="getsentry/cli"
+
+case "$(uname -s)" in
+  Darwin) os="darwin" ;;
+  Linux) os="linux" ;;
+  *) echo "install-sentry-cli: unsupported OS $(uname -s)" >&2; exit 2 ;;
+esac
+
+case "$(uname -m)" in
+  arm64 | aarch64) arch="arm64" ;;
+  x86_64 | amd64) arch="x64" ;;
+  *) echo "install-sentry-cli: unsupported architecture $(uname -m)" >&2; exit 2 ;;
+esac
+
+version="${SENTRY_CLI_VERSION:-}"
+if [ -z "$version" ]; then
+  version="$(
+    curl -fsSL "https://api.github.com/repos/$REPO/releases/latest" |
+      sed -n 's/.*"tag_name"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/p' |
+      head -1
+  )"
+fi
+[ -n "$version" ] || { echo "install-sentry-cli: could not resolve latest version" >&2; exit 1; }
+
+asset="sentry-$os-$arch"
+url="https://github.com/$REPO/releases/download/$version/$asset"
+
+mkdir -p "$DEST"
+tmp="$(mktemp)"
+trap 'rm -f "$tmp"' EXIT
+
+echo "Downloading $asset $version..."
+curl -fsSL "$url" -o "$tmp"
+chmod +x "$tmp"
+
+# Verify it runs before replacing anything already installed.
+"$tmp" --version >/dev/null 2>&1 || {
+  echo "install-sentry-cli: downloaded binary did not execute" >&2
+  exit 1
+}
+
+mv "$tmp" "$DEST/sentry"
+trap - EXIT
+
+echo "Installed sentry $("$DEST/sentry" --version) to $DEST/sentry"
+case ":$PATH:" in
+  *":$DEST:"*) ;;
+  *) echo "Note: $DEST is not on PATH." ;;
+esac
+echo "Authenticate with 'sentry auth login', or set SENTRY_AUTH_TOKEN."

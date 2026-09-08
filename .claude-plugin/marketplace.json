@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-marketplace.json",
+  "name": "sentry-plugin-marketplace",
+  "description": "Sentry's official plugin with private downstream operational workflows",
+  "owner": {
+    "name": "Sentry / PedroAVJ"
+  },
+  "plugins": [
+    {
+      "name": "sentry",
+      "source": "./plugins/sentry",
+      "description": "Sentry's complete plugin plus guarded downstream triage and remediation workflows",
+      "version": "1.4.0",
+      "category": "Developer Tools",
+      "homepage": "https://github.com/PedroAVJ/sentry"
+    }
+  ]
+}
