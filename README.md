@@ -27,14 +27,14 @@ Both Codex and Claude can install it from that subdirectory through the
 
 ## Install
 
-The personal `package-manager` marketplace is the canonical install source:
+The personal `near` marketplace is the canonical install source:
 
 ```bash
-codex plugin marketplace upgrade package-manager
-codex plugin add sentry@package-manager
+codex plugin marketplace upgrade near
+codex plugin add sentry@near
 
-claude plugin marketplace update package-manager
-claude plugin install sentry@package-manager --scope user
+claude plugin marketplace update near
+claude plugin install sentry@near --scope user
 ```
 
 The optional CLI helper is shipped inside the plugin:
